@@ -22,7 +22,7 @@ RegisterCommand('lidarwipe', function(source, args)
 end)
 TriggerEvent('chat:addSuggestion', '/lidarwipe', 'Deletes history data.')
 
-if cfg.logging then
+--if cfg.logging then
 -- MANUAL SAVE COMMAND
 	RegisterCommand('lidarupload', function(source, args)
 		lastLoggedTarget = nil
@@ -43,14 +43,25 @@ if cfg.logging then
 	end)
 	TriggerEvent('chat:addSuggestion', '/lidarrecords', 'Review lidar records.')
 
+	RegisterCommand('forcerecords', function()
+		TriggerEvent("prolaser4:ReturnLogData", {})
+	end)
+
+	RegisterCommand('forceclose', function()
+		exports["inferno-tablet"]:toggleTablet(GetCurrentResourceName())
+	end)
+
 	--	[[EVENTS]]
 	RegisterNetEvent("prolaser4:ReturnLogData")
 	AddEventHandler("prolaser4:ReturnLogData", function(databaseData)
 		waitingForServer = false
-		HUD:SendDatabaseRecords(databaseData)
-		HUD:SetTabletState(true)
+		if (exports["inferno-tablet"]:isTabletOpen()) then return end
+
+		HUD.databaseData = databaseData
+
+		exports["inferno-tablet"]:toggleTablet(GetCurrentResourceName())
 	end)
-end
+--end
 
 --	[[THREADS]]
 --	SAVE/LOAD HISTORY THREAD: saves history if it's been changed every 5 minutes.

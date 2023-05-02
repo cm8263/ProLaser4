@@ -8,7 +8,7 @@ description 'Lidar Resource.'
 
 version '1.0.1'						-- Readonly version of currently installed version.
 ------------------------------
-ui_page('UI/html/index.html')
+ui_page('UI/html/nui.html')
 
 dependencies {
     -- 'oxmysql',					-- uncomment for persistent records & record management tablet. See docs and configs.
@@ -16,11 +16,11 @@ dependencies {
 
 files {
 	'speedlimits.json',
-	'UI/html/index.html',
+	'UI/html/*.html',
 	'UI/html/fonts/**.ttf',
 	'UI/html/**.png',
 	'UI/html/**.jpg',
-	'UI/html/lidar.js',
+	'UI/html/*.js',
 	'UI/html/style.css',
 	'UI/html/sounds/*.ogg',
 	'UI/weapons_dlc_bb.png',

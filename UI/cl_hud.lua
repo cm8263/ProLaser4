@@ -13,11 +13,21 @@ function HUD:SetDisplayMode(mode)
 end
 
 -- Setter for SFX vars
-function HUD:SendConfigData()
+function HUD:SendLidarConfigData()
 	SendNUIMessage({
 		action = "SetConfigVars",
 		clockSFX = cfg.clockSFX, 
 		selfTestSFX = cfg.selfTestSFX,
+		version = GetResourceMetadata(GetCurrentResourceName(), 'version', 0),
+		name = GetCurrentResourceName(),
+		metric = cfg.useMetric,
+	})
+end
+
+-- Setter for SFX vars
+function HUD:SendTabletConfigData()
+	SendTabletMessage({
+		action = "SetConfigVars",
 		imgurApiKey = cfg.imgurApiKey,
 		recordLimit = cfg.loggingSelectLimit,
 		version = GetResourceMetadata(GetCurrentResourceName(), 'version', 0),
@@ -105,12 +115,7 @@ function HUD:SetHistoryData(index, data)
 end
 
 function HUD:SendDatabaseRecords(dataTable)
-	SendNUIMessage({ action = "SendDatabaseRecords", name = GetPlayerName(PlayerId()), table = json.encode(dataTable) })
-end
-	
-function HUD:SetTabletState(state)
-	SetNuiFocus(state, state)
-	SendNUIMessage({ action = "SetTabletState", state = state })
+	SendTabletMessage({ action = "SendDatabaseRecords", name = GetPlayerName(PlayerId()), table = json.encode(dataTable) })
 end
 
 function HUD:GetCurrentDisplayData(closestPlayer)
@@ -137,14 +142,17 @@ function HUD:SendBatteryPercentage(percentage)
 	SendNUIMessage({ action = "SendBatteryAmount", bars = bars })
 end
 
+--[[Callback for JS -> LUA to get database records]]
+RegisterNUICallback('EntryPoint', function()
+	HUD:SendTabletConfigData()
+	HUD:SendDatabaseRecords(HUD.databaseData)
+
+	HUD.databaseData = nil
+end )
+
 --[[Callback for JS -> LUA to close tablet on html button]]
 RegisterNUICallback('CloseTablet', function(cb)
 	HUD:SetTabletState(false)
-end )
-
---[[Callback for JS -> LUA to get display information back]]
-RegisterNUICallback('ReturnCurrentDisplayData', function(data, cb)
-	TriggerServerEvent('prolaser4:SendDisplayData', targetPlayer, data)
 end )
 
 --On screen GTA V notification
@@ -159,3 +167,14 @@ function HUD:DisplayControlHint()
 	AddTextComponentString('~INPUT_AIM~ Toggle ADS\n~INPUT_LOOK_BEHIND~ Change Scope Style')
 	DisplayHelpTextFromStringLabel(0, 0, 0, 5000)
 end
+
+--	Play NUI front in audio.
+function HUD:PlayButtonPressBeep()
+	SendNUIMessage({
+	  action  = 'PlayButtonPressBeep',
+	  file   = 'LidarBeep',
+	})
+end
+
+--Calls Inferno Tablet export
+function SendTabletMessage(jsonObject) exports["inferno-tablet"]:sendMessage(GetCurrentResourceName(), json.encode(jsonObject)) end

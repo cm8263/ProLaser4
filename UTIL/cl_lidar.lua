@@ -48,7 +48,6 @@ end
 -- local function forward declarations
 local GetLidarReturn
 local CheckInputRotation, HandleZoom
-local PlayButtonPressBeep, PlayFastAlertBeep
 
 --	TOGGLE LIDAR DISPLAY COMMAND
 RegisterCommand('lidar', function(source, args)
@@ -146,7 +145,7 @@ Citizen.CreateThread(function()
 	-- Initalize lidar state and vars LUA->JS
 	HUD:SetSelfTestState(selfTestState, false)
 	HUD:SendBatteryPercentage()
-	HUD:SendConfigData()
+	HUD:SendLidarConfigData()
 
 	-- Texture load check & label replacement.
 	AddTextEntry(cfg.lidarNameHashString, "ProLaser 4")
@@ -299,7 +298,7 @@ Citizen.CreateThread( function()
 					if isHistoryActive then
 						historyIndex = historyIndex - 1
 						if scrollWait == slowScroll then
-							PlayButtonPressBeep()
+							HUD:PlayButtonPressBeep()
 						end
 						if historyIndex > 0 then
 							HUD:SetHistoryData(historyIndex, HIST.history[historyIndex])
@@ -315,7 +314,7 @@ Citizen.CreateThread( function()
 					HUD:SetHistoryState(isHistoryActive)
 					if historyIndex < #HIST.history then
 						if scrollWait == slowScroll then
-							PlayButtonPressBeep()
+							HUD:PlayButtonPressBeep()
 						end
 						historyIndex = historyIndex + 1
 						HUD:SetHistoryData(historyIndex, HIST.history[historyIndex])
@@ -522,12 +521,4 @@ HandleZoom = function(cam)
 		lidarFOV = currentLidarFOV
 	end
 	SetCamFov(cam, currentLidarFOV + (lidarFOV - currentLidarFOV)*0.03) -- Smoothing of camera zoom
-end
-
---	Play NUI front in audio.
-PlayButtonPressBeep = function()
-	SendNUIMessage({
-	  action  = 'PlayButtonPressBeep',
-	  file   = 'LidarBeep',
-	})
 end
