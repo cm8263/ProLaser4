@@ -251,15 +251,18 @@ a {
 }
 
 
+
 #tablet{
-    background-color: rgb(255, 255, 255);
-    border: rgb(39, 39, 39) 1.5vh solid;
-    border-radius: 20px;
-    width: 82vw;
-    height: 46vw;
-    max-height: 1080px;
-    max-width: 1920px;
-    box-shadow: 0 0 20px 0px #000000ad;
+	color: white;
+	background-color: #080808 !important;
+    /* border: rgb(39, 39, 39) 1.5vh solid; */
+    /* border-radius: 20px; */
+    width: 1408px;
+    height: 1000px;
+    /* max-height: 1080px; */
+    /* max-width: 1920px; */
+    /* box-shadow: 0 0 20px 0px #000000ad; */
+	font-size: 17px !important;
 }
 
 #map {
@@ -276,16 +279,14 @@ a {
 }
 
 #tablet-version {
-	display: inline-block;
+	display: block;
     position: relative;
-    /* float: left; */
-    bottom: 0%;
-    width: 100%;
-    /* margin-right: -100%; */
+    top: -5%;
+    left: 17%;
     text-shadow: unset;
     text-align: center;
     color: rgb(92 92 92);
-    font-size: 1vh;
+    font-size: 1.9vh;
     font-weight: bolder;
     line-height: 1.9vh;
 }
@@ -294,13 +295,22 @@ a {
     position: relative;
 	float: left; 
 	width: 60%;
-    height: 34vw;
-    max-height: 850px;
+    height: 805px;
 	padding: 15px;
 }
 
 .dropdown-menu {
 	min-width: 130px !important;
+	font-size: 17px !important;
+}
+
+table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>th.sorting_asc, table.dataTable thead>tr>th.sorting_desc {
+    padding-right: 8px !important;
+}
+
+.dataTable > thead > tr > th[class*="sort"]:before,
+.dataTable > thead > tr > th[class*="sort"]:after {
+    content: "" !important;
 }
 
 .dataTables_filter{
@@ -309,7 +319,7 @@ a {
 
 .table td, .table th {
 	height: 12px;
-	line-height: 12px !important;
+	line-height: 19px !important;
 	vertical-align: middle !important;
 	text-align: center !important;
 	white-space: nowrap;
@@ -330,7 +340,11 @@ a {
 }
 
 .tableBtn{
-	width: 90%;
+	width: 86%;
+	background-color: #323131;
+    line-height: 24px;
+	border: none;
+    border-radius: 5px;
 }
 
 .centered-container {
@@ -361,10 +375,6 @@ a {
     margin-bottom: 20px !important;
     border: 0;
     border-top: 1px solid #b9b9b9 !important;
-}
-
-th {
-	background-color: rgb(237, 237, 237);
 }
 
 td {
@@ -413,7 +423,7 @@ td {
 }
 
 .fa-print {
-  color: black;
+  /* color: black; */
 }
 
 .no-border {
@@ -476,7 +486,7 @@ td {
 }
 
 .btn-group > * {
-	border: 1px solid #1a62ae !important;
+	/* border: 1px solid #1a62ae !important; */
 }
 
 .btn-check:checked + .btn-outline-primary {
@@ -485,7 +495,7 @@ td {
 }
 
 .btn-check:not(:checked) + .btn-outline-primary {
-	color: #1a62ae;
+	/* color: #1a62ae; */
 }
 
 .btn-check {
@@ -497,6 +507,10 @@ td {
 .rounded-start {
 	border-top-left-radius: 15px !important;
 	border-bottom-left-radius: 15px !important;
+}
+
+label {
+	margin-bottom: 0 !important;
 }
 
 #clock-table_filter {
@@ -517,7 +531,7 @@ td {
 }
 
 .dropdown-toggle {
-  height: 27px;
+  height: 32px !important;
   line-height: 6px;
 }
 
@@ -526,21 +540,22 @@ td {
     float: right;
     display: block;
     width: 40% !important;
-    border-left: 2px #e5e5e5 solid;
-	margin: 3.3% 0% 0px -39.9%;
+    border-left: 2px #282828 solid;
+	margin: 4.6% 0% 0px -39.9%;
 }
 
 .map-controls {
     display: grid;
-    grid-template-columns: 36% 36% 17%;
-    grid-template-rows: 38%;
+    grid-template-columns: 38% 42% 17%;
+    grid-template-rows: 50%;
     margin: 0;
+	margin-bottom: 10px;
 }
 
 .map-controls-label {
 	text-shadow: unset;
     font-weight: bold;
-    color: black;
+    /* color: black; */
     text-align: center;
 }
 
@@ -551,7 +566,7 @@ td {
 
 .btn-outline-primary {
   border-radius: 0;
-  height: 27px !important;
+  height: 32px !important;
   line-height: 100% !important;
 }
 
@@ -566,7 +581,7 @@ td {
 }
 
 .btn-outline-primary:hover {
-  background-color: #e9ecef;
+	background-color: rgb(40 40 40);
 }
 
 label[for="btn-all-pages"]:hover:after {
@@ -602,6 +617,8 @@ label[for="btn-all-pages"]:hover:after {
 	border-radius: 5px;
 	box-shadow: 0 0 5px #cccccc73;
 	margin: 5px 0 0 5px;
+	color: black;
+	font-size: 14px;
 }
 
 .legend-container.hidden {
@@ -630,10 +647,15 @@ label[for="btn-all-pages"]:hover:after {
 .legend-spacer {
 	text-align: center;
 	font-weight: bold;
-	font-size: 12px;
+	font-size: 15px;
 }
 
 /* Stylize the toggle button */
+.btn {
+	font-size: 17px !important;
+	background-color: rgb(60 60 60);
+}
+
 .toggle-button {
 	align-items: center;
 	justify-content: center;
@@ -641,7 +663,6 @@ label[for="btn-all-pages"]:hover:after {
 	width: 167px;
 	background-color: rgb(255 255 255 / 70%);
 	color: rgb(51, 51, 51);
-	font-size: 12px;
 	font-weight: bold;
 	cursor: pointer;
 	box-shadow: rgb(0 0 0 / 30%) 0px 2px 5px;
@@ -654,27 +675,33 @@ label[for="btn-all-pages"]:hover:after {
 	background-color: rgb(255 255 255 / 100%);
 }
 
+#brightness-layer {
+	width: 100%; 
+	height: 100%; 
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 999;	
+	pointer-events: none;
+}
+
 #loading-dialog-container {
-	width: 82vw; 
-	height: 46vw; 
-	max-height: 1080px; 
-	max-width: 1920px; 
-	background: rgba(0, 0, 0, 0.38); 
-	margin: -1.5vh; 
-	border-radius: 20px; 
+	margin-top: 60px;
+	width: 1408px; 
+	height: 940px; 
+	backdrop-filter: blur(3px);
 	z-index: 3;	
 }
 
 #loading-dialog {
     background: #eeeeee;
-    width: 3.85in !important;
-    height: 100px !important;
+    width: 4.85in !important;
+    height: 133px !important;
     border: 10px;
     border-radius: 10px;
+	color: black;
 }
 
 @media (max-width: 2000px) {
   .map-controls-container {
-	margin: 4% 0% 0px -39.9% !important;
+	margin: 4.6% 0% 0px -39.9% !important;
   }
 }

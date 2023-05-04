@@ -48,6 +48,17 @@ $(document).keyup(function(event) {
 } );
  
 $(document).ready(function () {
+	  var opacity = 0;
+	  setInterval(function() {
+		opacity += 0.2;
+		if (opacity > 0.8) {
+		  opacity = 0;
+		}
+		$("#brightness-layer").css("background-color", "rgba(0, 0, 0, " + opacity + ")");
+	  }, 1000);
+	
+	
+	
     $('#tablet').hide();
     $('#loading-dialog-container').hide();
 	$('#view-record-container').hide();
@@ -286,6 +297,7 @@ function addMarker(id, x, y, content_html, icon) {
 		map: null,
 		icon: 'textures/map/' + icon + '.png',
 		optimized: false, //to prevent it from repeating on the x axis.
+
 	});
 
 	databaseRecords[id].googleLoc = location;
@@ -390,6 +402,10 @@ function processRecords(playerName, databaseRecords){
 		addMarker(i, record.targetX, record.targetY, record.infoContent, markerColor);
 		
 		// Add records to table
+		var primaryStreet = record.street.includes('/')
+			? [record.street.split('/')[0].trim()]
+			: [record.street.trim()];
+		
 		tBodyRows.push(
 			'<tr><td class="rid">' +
 				record.rid +
@@ -398,7 +414,7 @@ function processRecords(playerName, databaseRecords){
 				speedString +
 			'<td class="range">' + record.range + '</td>' +
 			'<td class="player">' + record.player + '</td>' +
-			'<td class="street" textContent="' + speedLimit + '">' + record.street + '</td>' +
+			'<td class="street" textContent="' + speedLimit + '">' + primaryStreet + '</td>' +
 			'<td class="mapping"><button class="tableBtn" id=' + i +' onClick="openInfo(this)"><i class="fa-sharp fa-solid fa-map-location-dot"></i></button></td>' +
 			'<td class="print"><button class="tableBtn" id=' + i +' onClick="openPrintView(this)"><i class="fa-sharp fa-solid fa-print"></i></button></td></tr>'
 		);
@@ -412,13 +428,28 @@ function processRecords(playerName, databaseRecords){
 	$('#loading-message').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Building Table..');
 	dataTable = $('#clock-table').DataTable({
 		destroy: true,
-		bPaginate: true,
-		bLengthChange: false,
-		bFilter: true,
-		bInfo: true,
-		bAutoWidth: false,
-		"order": [[ 1, 'desc' ]],
-		"aoColumnDefs": [ { "bSortable": false, "aTargets": [ 6, 7 ] } ],
+		paging: true,
+		lengthChange: false,
+		searching: true,
+		info: true,
+		autoWidth: false,
+		order: [[ 1, 'desc' ]],
+		columnDefs: [
+						{
+							targets: [6, 7], 
+							orderable: false
+						},
+						{
+							targets: [4, 5],
+							render: function ( data, type, row ) {
+								if (data.length > 14) {
+									return data.substr(0, 14) + '...';
+								} else {
+									return data;
+								}
+							}
+						}
+					],
 		"initComplete": function(settings, json) {
 			// only display markers on this page
 			$('#clock-table').DataTable().on('draw.dt', function() {
@@ -508,7 +539,7 @@ function processRecords(playerName, databaseRecords){
 	
 	// Add the legend after reinitalization
 	$('#loading-message').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Repositioning Map..');
-	document.getElementById('map').style.cssText = 'position: relative; width: 40%; height: calc(100% - 116px); overflow: hidden; float: right; border: inset; z-index: 1; opacity:1;';
+	document.getElementById('map').style.cssText = 'position: relative; width: 40%; height: calc(100% - 141px); overflow: hidden; float: right; border: inset; z-index: 1; opacity:1;';
 	map.controls[google.maps.ControlPosition.TOP_LEFT].push(legendWrapper);
 	$('#loading-dialog-container').fadeOut();
 }
