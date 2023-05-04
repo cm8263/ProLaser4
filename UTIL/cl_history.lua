@@ -44,7 +44,8 @@ TriggerEvent('chat:addSuggestion', '/lidarwipe', 'Deletes history data.')
 	TriggerEvent('chat:addSuggestion', '/lidarrecords', 'Review lidar records.')
 
 	RegisterCommand('forcerecords', function()
-		TriggerEvent("prolaser4:ReturnLogData", {})
+		if (exports["inferno-tablet"]:isTabletOpen()) then return end
+		exports["inferno-tablet"]:toggleTablet(GetCurrentResourceName())
 	end)
 
 	RegisterCommand('forceclose', function()
@@ -55,10 +56,8 @@ TriggerEvent('chat:addSuggestion', '/lidarwipe', 'Deletes history data.')
 	RegisterNetEvent("prolaser4:ReturnLogData")
 	AddEventHandler("prolaser4:ReturnLogData", function(databaseData)
 		waitingForServer = false
-		if (exports["inferno-tablet"]:isTabletOpen()) then return end
-
 		HUD.databaseData = databaseData
-
+		if (exports["inferno-tablet"]:isTabletOpen()) then return end
 		exports["inferno-tablet"]:toggleTablet(GetCurrentResourceName())
 	end)
 --end
