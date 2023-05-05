@@ -1,5 +1,3 @@
-if (window.parent.origin !== "https://cfx-nui-inferno-tablet") throw "This isn't actually an error, you can safely ignore this!";
-
 console.log("I'm running inside Inferno Tablet!");
 
 window.parent.postMessage("Ping", "https://cfx-nui-inferno-tablet");
