@@ -145,7 +145,7 @@ end
 --[[Callback for JS -> LUA to get database records]]
 RegisterNUICallback('EntryPoint', function()
 	HUD:SendTabletConfigData()
-	HUD:SendDatabaseRecords(HUD.databaseData)
+	HUD:SendDatabaseRecords(HUD.databaseData and HUD.databaseData or {})
 
 	HUD.databaseData = nil
 end )
@@ -177,4 +177,4 @@ function HUD:PlayButtonPressBeep()
 end
 
 --Calls Inferno Tablet export
-function SendTabletMessage(jsonObject) exports["inferno-tablet"]:sendMessage(GetCurrentResourceName(), json.encode(jsonObject)) end
+function SendTabletMessage(jsonObject) exports["inferno-tablet"]:sendMessage(json.encode(jsonObject)) end

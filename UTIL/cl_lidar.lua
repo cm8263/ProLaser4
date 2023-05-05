@@ -147,6 +147,11 @@ Citizen.CreateThread(function()
 	HUD:SendBatteryPercentage()
 	HUD:SendLidarConfigData()
 
+	exports["inferno-tablet"]:registerApplication({
+		Name = "ProLaser4",
+		LogoPath = "UI/html/textures/prolaser-logo.png"
+	})
+
 	-- Texture load check & label replacement.
 	AddTextEntry(cfg.lidarNameHashString, "ProLaser 4")
 	RequestStreamedTextureDict(cfg.lidarGunTextureDict)

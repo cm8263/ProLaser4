@@ -45,11 +45,11 @@ TriggerEvent('chat:addSuggestion', '/lidarwipe', 'Deletes history data.')
 
 	RegisterCommand('forcerecords', function()
 		if (exports["inferno-tablet"]:isTabletOpen()) then return end
-		exports["inferno-tablet"]:toggleTablet(GetCurrentResourceName())
+		exports["inferno-tablet"]:toggleTablet()
 	end)
 
 	RegisterCommand('forceclose', function()
-		exports["inferno-tablet"]:toggleTablet(GetCurrentResourceName())
+		exports["inferno-tablet"]:toggleTablet()
 	end)
 
 	--	[[EVENTS]]
@@ -58,7 +58,7 @@ TriggerEvent('chat:addSuggestion', '/lidarwipe', 'Deletes history data.')
 		waitingForServer = false
 		HUD.databaseData = databaseData
 		if (exports["inferno-tablet"]:isTabletOpen()) then return end
-		exports["inferno-tablet"]:toggleTablet(GetCurrentResourceName())
+		exports["inferno-tablet"]:toggleTablet()
 	end)
 --end
 
